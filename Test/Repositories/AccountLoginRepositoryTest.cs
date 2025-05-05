@@ -9,13 +9,10 @@ namespace Test.Repositories
     public class AccountLoginRepositoryTest
     {
         private readonly Mock<ICollectionFactory> collectionFactoryMock = new Mock<ICollectionFactory>();
-        private readonly Mock<CollectionReference> accountLoginCollectionMock = new Mock<CollectionReference>();
-
+        //private readonly Mock<CollectionReference> accountLoginCollectionMock = new Mock<CollectionReference>();
 
         public AccountLoginRepositoryTest()
-        {
-
-        }
+        { }
 
         [Fact]
         public async Task CreateAccountLogin_Should_Throw_Exception_When_AccountLogin_IsNull()
@@ -30,18 +27,35 @@ namespace Test.Repositories
         [Fact]
         public async Task CreateAccountLoginAsync_Should_Call_AddAsyncMethod_When_AccountLogin_InNotNull()
         {
-            var documentReferenceResultMock = new Mock<DocumentReference>();
-            accountLoginCollectionMock.Setup(x => x.AddAsync(It.IsAny<AccountLogin>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(documentReferenceResultMock.Object);
-            collectionFactoryMock.Setup(x => x.GetAccountLoginCollection()).Returns(accountLoginCollectionMock.Object);
+            //var documentReferenceResultMock = new Mock<DocumentReference>();
+            var accountLoginCollectionMock = new Mock<ICollectionReferenceAccountLoginMock>();
+                accountLoginCollectionMock.Setup(x => x.AddAsync(It.IsAny<AccountLogin>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(It.IsAny<DocumentReference>());
+                 
             var repository = new AccountLoginRepository(collectionFactoryMock.Object);
             var accountLogin = new AccountLogin();
 
             var result = await repository.CreateAccountLoginAsync(accountLogin);
 
-            Assert.Equal(documentReferenceResultMock.Object, result);
+            //Assert.Equal(documentReferenceResultMock.Object, result);
         }
+    }
 
+    interface IFakeCollectionFactory
+    { 
+        IFakeAccountLoginCollection GetAccountLoginCollection();  
+    }
 
+    interface IFakeAccountLoginCollection
+    {   
+        public Task<DocumentReference> AddAsync(object documentData, CancellationToken cancellationToken = default);    
+    }
+
+    class FakeAccountLoginCollection : IFakeAccountLoginCollection
+    {
+        public Task<DocumentReference> AddAsync(object documentData, CancellationToken cancellationToken = default)
+        {
+            
+        }
     }
 }

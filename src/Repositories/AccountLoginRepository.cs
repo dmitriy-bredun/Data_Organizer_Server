@@ -20,5 +20,4 @@ namespace Data_Organizer_Server.Repositories
             return await _accountLoginCollection.AddAsync(accountLogin);
         }
     }
-
 }
