@@ -4,10 +4,14 @@ using Google.Cloud.Firestore;
 
 namespace Data_Organizer_Server.Repositories
 {
-    public class AccountLoginRepository(ICollectionFactory collectionFactory) : IAccountLoginRepository
+    public class AccountLoginRepository : IAccountLoginRepository
     {
-        private readonly CollectionReference _accountLoginCollection = collectionFactory.GetAccountLoginCollection();
+        private readonly CollectionReference _accountLoginCollection;
 
+        public AccountLoginRepository(ICollectionFactory collectionFactory)
+        {
+            _accountLoginCollection = collectionFactory.GetAccountLoginCollection();
+        }
         public async Task<DocumentReference> CreateAccountLoginAsync(AccountLogin accountLogin)
         {
             if (accountLogin == null)
@@ -16,4 +20,5 @@ namespace Data_Organizer_Server.Repositories
             return await _accountLoginCollection.AddAsync(accountLogin);
         }
     }
+
 }
