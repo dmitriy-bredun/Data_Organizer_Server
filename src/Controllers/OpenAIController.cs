@@ -9,8 +9,8 @@ namespace Data_Organizer_Server.Controllers
     [ApiController]
     [Route("openai")]
     public class OpenAIController(
-    IOpenAIService openAIService,
-    ILogger<OpenAIController> logger) : ControllerBase
+        IOpenAIService openAIService,
+        ILogger<OpenAIController> logger) : ControllerBase
     {
         private readonly IOpenAIService _openAIService = openAIService;
         private readonly ILogger<OpenAIController> _logger = logger;
@@ -28,7 +28,7 @@ namespace Data_Organizer_Server.Controllers
 
                 request.Error = "Empty request or missing content!";
                 _logger.LogError(request.Error);
-                return BadRequest(request.Error);
+                return BadRequest(request);
             }
 
             try
