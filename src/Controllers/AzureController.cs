@@ -9,8 +9,8 @@ namespace Data_Organizer_Server.Controllers
     [ApiController]
     [Route("azure")]
     public class AzureController(
-    IAzureService transcriptionService,
-    ILogger<AzureController> logger) : ControllerBase
+        IAzureService transcriptionService,
+        ILogger<AzureController> logger) : ControllerBase
     {
         private const long MaxFileSize = 100 * 1024 * 1024;
         private readonly IAzureService _transcriptionService = transcriptionService;

@@ -13,19 +13,16 @@ namespace Data_Organizer_Server.Repositories
             if (device == null)
                 throw new ArgumentNullException("Argument \"device\" is null while creating the device.");
 
-            DocumentReference? existingDeviceDocRef = null;
-
             try
             {
-                existingDeviceDocRef = await GetDeviceDocRefByCombinedInfo(device);
+                var existingDeviceDocRef = await GetDeviceDocRefByCombinedInfo(device);
+                return existingDeviceDocRef;
             }
             catch (Exception)
             {
                 var newDeviceDocRef = await _devicesCollection.AddAsync(device);
                 return newDeviceDocRef;
             }
-
-            return existingDeviceDocRef;
         }
 
         public async Task<DocumentReference> GetDeviceDocRefByCombinedInfo(DeviceInfoModel device)

@@ -11,10 +11,10 @@ namespace Test.Repositories
         [Fact]
         public async Task CreateChangePassword_Should_Throw_Exception_When_ChangePassword_IsNull()
         {
-            var repository = new AccountLogoutRepository(collectionFactoryMock.Object);
+            var repository = new ChangePasswordRepository(collectionFactoryMock.Object);
 
             await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                repository.CreateAccountLogoutAsync(null)
+                repository.CreateChangePasswordAsync(null)
             );
         }
     }
