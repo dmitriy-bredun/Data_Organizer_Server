@@ -21,13 +21,14 @@ namespace Data_Organizer_Server.Controllers
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Content))
             {
-                if (request != null)
-                    request.Error = "Empty request or missing content!";
+                if (request == null)
+                {
+                    request = new SummaryRequestDTO();
+                }
 
-                _logger.LogError($"Received invalid request: {request?.Error}");
-                return request != null ?
-                    BadRequest(request) :
-                    BadRequest(new SummaryRequestDTO() { Error = "Empty request or missing content!" });
+                request.Error = "Empty request or missing content!";
+                _logger.LogError(request.Error);
+                return BadRequest(request.Error);
             }
 
             try
