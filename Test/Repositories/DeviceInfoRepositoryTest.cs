@@ -1,11 +1,6 @@
 ﻿using Data_Organizer_Server.Interfaces;
 using Data_Organizer_Server.Repositories;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.Repositories
 {
@@ -23,6 +18,7 @@ namespace Test.Repositories
             );
         }
 
+        [Fact]
         public async Task GetDeviceDocRefByCombinedInfo_Shold_Throw_Exception_When_Device_IsNull()
         {
             var repository = new DeviceInfoRepository(collectionFactoryMock.Object);
